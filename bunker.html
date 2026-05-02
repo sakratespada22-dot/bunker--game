@@ -1,0 +1,273 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Побег из Крипты</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #c4c4c4;
+            font-family: 'Courier New', monospace;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        h1 {
+            color: #8b0000;
+            text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+        }
+        .scene {
+            border-left: 2px solid #3a0000;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+        .branch-label {
+            color: #5a5a5a;
+            font-size: 12px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .choices {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn {
+            background-color: #1a1a1a;
+            color: #c4c4c4;
+            border: 1px solid #4a0000;
+            padding: 12px 19px;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+        .btn:hover {
+            background-color: #2a0000;
+            border-color: #8b0000;
+            color: #ffffff;
+        }
+        .ending {
+            color: #8b0000;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 30px;
+            letter-spacing: 2px;
+        }
+        hr {
+            border-color: #2a0000;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>ПОБЕГ ИЗ КРИПТЫ</h1>
+
+<!-- ====== СЦЕНА 0: НАЧАЛО ====== -->
+<div id="scene0" class="scene">
+    <div class="branch-label">[ СТВОЛ ]</div>
+    <p>Бункер. Зомби ломятся в дверь. Твой герой слышит странный звук из вентиляции. За дверью явно небезопасно и, судя по всему, надо торопиться. Вариантов мало, и кажется, нужно принимать решение.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene1')">Спрятаться</button>
+        <button class="btn" onclick="show('scene2')">Влезть в вентиляционную шахту</button>
+        <button class="btn" onclick="show('scene3')">Заглянуть в смотровое окно у двери</button>
+    </div>
+</div>
+
+<!-- ====== СЦЕНА 1: СПРЯТАТЬСЯ (дверь ещё закрыта) ====== -->
+<div id="scene1" class="scene" style="display:none;">
+    <div class="branch-label">[ ВЕТКА 1: СПРЯТАТЬСЯ ]</div>
+    <p>Ты забился под стол у стены и задвинул тумбочку. Тебя не видно. Судя по всему, шумы в вентиляции не представляют опасности — это просто гул воздуха. А вот дверь явно могла бы быть и попрочнее, видимо, экономили не только на вакцинах.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene1_1')">Остаться сидеть</button>
+        <button class="btn" onclick="show('scene2')">Побежать к вентиляции</button>
+    </div>
+</div>
+
+<!-- СЦЕНА 1.1: ОСТАТЬСЯ СИДЕТЬ (дверь взломали) -->
+<div id="scene1_1" class="scene" style="display:none;">
+    <div class="branch-label">[ 1 → 1.1: ОСТАТЬСЯ СИДЕТЬ ]</div>
+    <p>Дверь поддалась, и толпы одержимых повалили в помещение. Они заполонили всё пространство и, кажется, не планируют уходить.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene1_1_2')">Побежать к выходу</button>
+    </div>
+</div>
+
+<!-- СЦЕНА 1.1.2: ПОБЕЖАТЬ К ВЫХОДУ (с проверкой окна) -->
+<div id="scene1_1_2" class="scene" style="display:none;">
+    <div class="branch-label">[ 1.1 → 1.1.2: ПОБЕЖАТЬ К ВЫХОДУ ]</div>
+    <p>Ты прорываешься через одержимых, которые не успевают среагировать. Ты выбежал на улицу и бежишь в случайном направлении — в голове паника и открытая местность.</p>
+    <div id="scene1_1_2_noWindow">
+        <p>Оглянувшись, ты понимаешь, что бежать бессмысленно: в каждой точке смерть. Сзади на парковке есть машина, но она уже отрезана теми, кто пытается тебя догнать. Ты окружён, твои попытки сопротивляться бессмысленны. Ты погибаешь, понимая, что, возможно, будь ты осмотрительнее, всё могло бы сложиться по-другому.</p>
+        <p class="ending">— КОНЕЦ —</p>
+    </div>
+    <div id="scene1_1_2_window" style="display:none;">
+        <p>Твоё чутьё тебя не подвело — ты помнишь про машину с кровью на сиденье, которую заметил в окно. Ты бежишь прямо к ней. Ключи в замке. Ты спасён.</p>
+        <p class="ending">— КОНЕЦ —</p>
+    </div>
+</div>
+
+<!-- ====== СЦЕНА 2: ВЛЕЗТЬ В ВЕНТИЛЯЦИЮ ====== -->
+<div id="scene2" class="scene" style="display:none;">
+    <div class="branch-label">[ ВЕТКА 2: ВЕНТИЛЯЦИЯ ]</div>
+    <p>Ты проползаешь по единственному не загромождённому каналу и попадаешь в канцелярию. Оглянувшись, ты видишь дверь. Всё тихо. Коридор идёт в две стороны.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene2_1')">Пойти в направлении кухни</button>
+        <button class="btn" onclick="show('scene2_2')">Пойти в направлении лаборатории</button>
+    </div>
+</div>
+
+<!-- СЦЕНА 2.1: КУХНЯ -->
+<div id="scene2_1" class="scene" style="display:none;">
+    <div class="branch-label">[ 2 → 2.1: КУХНЯ ]</div>
+    <p>На кухне есть ножи, но не похоже, что тебя это спасёт. Рядом с плитой — походные газовые баллоны. По звукам слышно, что ты больше не один. Ты хватаешь баллон и бежишь в сторону лаборатории. Пока ты бежал, тебя заметили. В панике ты забегаешь в лабораторию и закрываешь дверь. Ты слышишь, что дверь начинают атаковать, и времени немного.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene2_1_1')">Поставить баллон у двери и облить реагентами</button>
+        <button class="btn" onclick="show('scene2_1_2')">Сделать экспериментальную инъекцию</button>
+    </div>
+</div>
+
+<!-- СЦЕНА 2.1.1: БАЛЛОН -->
+<div id="scene2_1_1" class="scene" style="display:none;">
+    <div class="branch-label">[ 2.1 → 2.1.1: БАЛЛОН ]</div>
+    <p>Ты ставишь баллон у двери и заливаешь всеми реагентами, какие только могли попасться под руку. Пошла бурная реакция. Дверь снесло вместе с куском стены. Ты контужен, но ещё можешь двигаться. Ты нашёл запасную дверь бункера, но перед глазами всё плывёт. Дверь открыта, но тебя уже держат мёртвой хваткой. Идеальный план дал сбой. Контузия тебя замедлила, но снизила боль во время уничтожения твоей плоти.</p>
+    <p class="ending">— КОНЕЦ —</p>
+</div>
+
+<!-- СЦЕНА 2.1.2: ИНЪЕКЦИЯ -->
+<div id="scene2_1_2" class="scene" style="display:none;">
+    <div class="branch-label">[ 2.1 → 2.1.2: ИНЪЕКЦИЯ ]</div>
+    <p>Ты обнаруживаешь отдельно стоящую инъекцию, над которой ведётся разработка. Ты вкалываешь в себя непонятно что. Ты падаешь на пол в страшных муках. Ты умер до того, как тебя успели настигнуть.</p>
+    <p class="ending">— КОНЕЦ —</p>
+</div>
+
+<!-- СЦЕНА 2.2: ЛАБОРАТОРИЯ -->
+<div id="scene2_2" class="scene" style="display:none;">
+    <div class="branch-label">[ 2 → 2.2: ЛАБОРАТОРИЯ ]</div>
+    <p>Ты заходишь в дверь, замечая ещё одну напротив.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene2_2_1')">Выйти из лаборатории в дверь напротив</button>
+        <button class="btn" onclick="show('scene2_2_2')">Оглядеться в лаборатории</button>
+    </div>
+</div>
+
+<!-- СЦЕНА 2.2.2: ОГЛЯДЕТЬСЯ -->
+<div id="scene2_2_2" class="scene" style="display:none;">
+    <div class="branch-label">[ 2.2 → 2.2.2: ОГЛЯДЕТЬСЯ ]</div>
+    <p>Здесь много реагентов и документов. Это вряд ли тебя спасёт. Ты слышишь шум — скоро кто-то будет рядом. Ты бежишь в дверь напротив. Тут запасная дверь бункера — ты выбираешься. Рядом парковка. Шум сзади: ты больше не один. В панике ты пытаешься попасть хоть в одну машину. Но они закрыты. Ты разбиваешь окно и забираешься внутрь. Ты окружён. Ты доживаешь остатки жизни запечатанным в машине.</p>
+    <p class="ending">— КОНЕЦ —</p>
+</div>
+
+<!-- СЦЕНА 2.2.1: ДВЕРЬ НАПРОТИВ -->
+<div id="scene2_2_1" class="scene" style="display:none;">
+    <div class="branch-label">[ 2.2 → 2.2.1: ДВЕРЬ НАПРОТИВ ]</div>
+    <p>Ты видишь запасную дверь бункера. У тебя есть время оценить ситуацию.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene2_2_1_1')">Оценить ситуацию через смотровое окно</button>
+        <button class="btn" onclick="show('scene2_2_1_2')">Открыть дверь, не теряя времени</button>
+    </div>
+</div>
+
+<!-- СЦЕНА 2.2.1.2: НЕ ТЕРЯЯ ВРЕМЕНИ -->
+<div id="scene2_2_1_2" class="scene" style="display:none;">
+    <div class="branch-label">[ 2.2.1 → 2.2.1.2: НЕ ТЕРЯЯ ВРЕМЕНИ ]</div>
+    <p>Ты вышел на улицу. Перед тобой парковка. Тебя заметили вдали, но ещё есть время.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene2_2_1_2_1')">Разбить камнем окно машины</button>
+        <button class="btn" onclick="show('scene2_2_1_2_2')">Проверять каждую машину</button>
+        <button class="btn" onclick="show('scene2_2_1_2_3')">Двинуться к машине, забрызганной кровью изнутри</button>
+    </div>
+</div>
+
+<!-- СЦЕНА 2.2.1.2.1: РАЗБИТЬ ОКНО -->
+<div id="scene2_2_1_2_1" class="scene" style="display:none;">
+    <div class="branch-label">[ РАЗБИТЬ ОКНО ]</div>
+    <p>Ты разбил окно и залез внутрь. Шум привлёк одержимых. Ключей нет. Это была последняя ошибка.</p>
+    <p class="ending">— КОНЕЦ —</p>
+</div>
+
+<!-- СЦЕНА 2.2.1.2.2: ПРОВЕРИТЬ КАЖДУЮ -->
+<div id="scene2_2_1_2_2" class="scene" style="display:none;">
+    <div class="branch-label">[ ПРОВЕРИТЬ КАЖДУЮ ]</div>
+    <p>Ты тратишь время. Тебя окружают. Ты разбиваешь окно камнем, но это лишь отсрочка.</p>
+    <p class="ending">— КОНЕЦ —</p>
+</div>
+
+<!-- СЦЕНА 2.2.1.2.3: МАШИНА С КРОВЬЮ -->
+<div id="scene2_2_1_2_3" class="scene" style="display:none;">
+    <div class="branch-label">[ МАШИНА С КРОВЬЮ ]</div>
+    <p>Следы крови приводят тебя к машине, у которой ключи в замке зажигания. Ты спасён.</p>
+    <p class="ending">— КОНЕЦ —</p>
+</div>
+
+<!-- СЦЕНА 2.2.1.1: ОЦЕНИТЬ ЧЕРЕЗ ОКНО -->
+<div id="scene2_2_1_1" class="scene" style="display:none;">
+    <div class="branch-label">[ 2.2.1 → 2.2.1.1: ОЦЕНИТЬ ]</div>
+    <p>Ты смотришь в окно. На парковке — машина, залитая кровью изнутри. Скорее всего, ключи в замке.</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene2_2_1_2_3')">Двинуться к машине с кровью</button>
+    </div>
+</div>
+
+<!-- ====== СЦЕНА 3: ЗАГЛЯНУТЬ В ОКНО ====== -->
+<div id="scene3" class="scene" style="display:none;">
+    <div class="branch-label">[ ВЕТКА 3: СМОТРОВОЕ ОКНО ]</div>
+    <p>Было страшно, но ты осмелился. За дверью — обезумевшие люди, готовые на что угодно. Всё в крови, вдали крики. На парковке видна машина, залитая кровью изнутри — видимо, водитель был за рулём в момент нападения. Скорее всего, ключи в замке.</p>
+    <p style="color: #8b0000;">[Ты запомнил про машину с ключами]</p>
+    <div class="choices">
+        <button class="btn" onclick="show('scene1')">Спрятаться</button>
+        <button class="btn" onclick="show('scene2')">Полезть в вентиляцию</button>
+    </div>
+</div>
+
+<hr>
+<p style="text-align:center; color:#4a0000;">Текстовый квест. 2025.</p>
+
+<script>
+// Переменная: смотрел ли игрок в окно
+var lookedWindow = false;
+
+function show(id) {
+    // Если игрок заглянул в окно — запоминаем
+    if (id === 'scene3') {
+        lookedWindow = true;
+    }
+    
+    // Скрываем ВСЕ сцены
+    var scenes = document.querySelectorAll('.scene');
+    for (var i = 0; i < scenes.length; i++) {
+        scenes[i].style.display = 'none';
+    }
+    
+    // Показываем нужную
+    var target = document.getElementById(id);
+    if (target) {
+        target.style.display = 'block';
+        target.scrollIntoView({behavior: 'smooth'});
+    }
+    
+    // Особая логика для сцены 1.1.2 (Побежать к выходу)
+    if (id === 'scene1_1_2') {
+        var noWindow = document.getElementById('scene1_1_2_noWindow');
+        var yesWindow = document.getElementById('scene1_1_2_window');
+        if (lookedWindow) {
+            noWindow.style.display = 'none';
+            yesWindow.style.display = 'block';
+        } else {
+            noWindow.style.display = 'block';
+            yesWindow.style.display = 'none';
+        }
+    }
+}
+</script>
+
+</body>
+</html>
